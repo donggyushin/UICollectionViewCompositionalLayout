@@ -5,7 +5,7 @@ A project for studying of UICollectionViewCompositionalLayout
 ## Let's see the result of project
 
 <div>
-<img src="https://user-images.githubusercontent.com/34573243/153603580-6b8256e9-5679-406d-922a-3b0fb8ead0b4.gif" width=400 />
+<img src="https://user-images.githubusercontent.com/34573243/153603580-6b8256e9-5679-406d-922a-3b0fb8ead0b4.gif" width=250 />
 </div>
 
 How will you make this layout with UIKit? Using nesting CollectionViews? It should be hard. But it's getting simpler when you use UICollectionViewCompositionalLayout
