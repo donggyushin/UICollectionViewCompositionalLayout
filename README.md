@@ -5,7 +5,7 @@ A project for studying of UICollectionViewCompositionalLayout
 ## Let's see the result of project
 
 <div>
-<img src="https://user-images.githubusercontent.com/34573243/153603580-6b8256e9-5679-406d-922a-3b0fb8ead0b4.gif" width=250 />
+<img src="https://user-images.githubusercontent.com/34573243/153614316-24b2d93f-ee54-46e4-b3b0-32bc4d35a973.gif" width=250 />
 </div>
 
 How will you make this layout with UIKit? Using nesting CollectionViews? It should be hard. But it's getting simpler when you use UICollectionViewCompositionalLayout
@@ -132,15 +132,18 @@ To use `Group Paging`, reduce size of the Group not Item.
 ## Section4
 
 ```
-let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(300)))
+let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
 item.contentInsets.trailing = 16
-item.contentInsets.bottom = 32
-let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(500)), subitems: [item])
+item.contentInsets.bottom = 16
+let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .estimated(300)), subitem: item, count: 5)
 let section = NSCollectionLayoutSection(group: group)
-section.contentInsets.top = 32
+section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: ViewController.playlistHeaderId, alignment: .topLeading)]
 section.contentInsets.leading = 16
+section.orthogonalScrollingBehavior = .groupPaging
 return section
 ```
+
+Playlist section has 5 items in a column. Use ```NSCollectionLayoutGroup.vertical``` instead of ```NSCollectionLayoutGroup.horizontal``` and insert 5 into the count. 
 
 ## Result
 

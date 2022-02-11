@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: ViewController.createLayout())
         view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         view.register(Header.self, forSupplementaryViewOfKind: ViewController.categoryHeaderId, withReuseIdentifier: Header.identifier)
+        view.register(Header.self, forSupplementaryViewOfKind: ViewController.playlistHeaderId, withReuseIdentifier: Header.identifier)
         view.dataSource = self
         return view
     }()
@@ -64,23 +65,31 @@ class ViewController: UIViewController {
                 section.contentInsets.top = 16
                 return section
             } else {
-                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(300)))
+                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
                 item.contentInsets.trailing = 16
-                item.contentInsets.bottom = 32
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(500)), subitems: [item])
+                item.contentInsets.bottom = 16
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .estimated(300)), subitem: item, count: 5)
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets.top = 32
+                section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: ViewController.playlistHeaderId, alignment: .topLeading)]
                 section.contentInsets.leading = 16
+                section.orthogonalScrollingBehavior = .groupPaging
                 return section
             }
         }
     }
     
     static let categoryHeaderId = "categoryHeaderId"
+    static let playlistHeaderId = "playlistHeaderId"
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Header.identifier, for: indexPath) as? Header ?? Header()
         view.label.text = "categories"
+        
+        if kind == ViewController.playlistHeaderId {
+            view.label.text = "playlist"
+        }
+        
         return view
     }
 
@@ -120,7 +129,7 @@ extension ViewController: UICollectionViewDataSource {
         } else if section == 2 {
             return 4
         } else {
-            return 6
+            return 20
         }
     }
     
