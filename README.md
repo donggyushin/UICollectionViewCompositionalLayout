@@ -143,7 +143,7 @@ section.orthogonalScrollingBehavior = .groupPaging
 return section
 ```
 
-Playlist section has 5 items in a column. Use ```NSCollectionLayoutGroup.vertical``` instead of ```NSCollectionLayoutGroup.horizontal``` and insert 5 into the count. 
+Playlist section has 5 items in a column. Use `NSCollectionLayoutGroup.vertical` instead of `NSCollectionLayoutGroup.horizontal` and insert 5 into the count.
 
 ## Result
 
